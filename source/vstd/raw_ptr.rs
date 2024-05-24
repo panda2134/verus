@@ -1,4 +1,5 @@
 #![allow(unused_imports)]
+#![cfg_attr(rustfmt, rustfmt::skip)]
 
 /*!
 Tools and reasoning principles for [raw pointers](https://doc.rust-lang.org/std/primitive.pointer.html).  The tools here are meant to address "real Rust pointers, including all their subtleties on the Rust Abstract Machine, to the largest extent that is reasonable."
