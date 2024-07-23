@@ -2,6 +2,7 @@ use air::context::SmtSolver;
 use getopts::Options;
 use std::{collections::HashSet, sync::Arc};
 use vir::printer::ToDebugSNodeOpts as VirLogOption;
+use std::iter::FromIterator;
 
 pub const DEFAULT_RLIMIT_SECS: f32 = 10f32;
 
@@ -160,6 +161,7 @@ pub fn enable_default_features_and_verus_attr(
     syntax_macro: bool,
     erase_ghost: bool,
 ) {
+    let args_set = std::collections::HashSet::<String>::from_iter(rustc_args.iter().cloned());
     if syntax_macro {
         // REVIEW: syntax macro adds superfluous parentheses and braces
         for allow in &["unused_parens", "unused_braces"] {
@@ -189,9 +191,13 @@ pub fn enable_default_features_and_verus_attr(
         rustc_args.push(format!("crate-attr=feature({})", feature));
     }
 
-    rustc_args.push("-Zcrate-attr=register_tool(verus)".to_string());
-    rustc_args.push("-Zcrate-attr=register_tool(verifier)".to_string());
-    rustc_args.push("-Zcrate-attr=register_tool(verusfmt)".to_string());
+    for tool in &["verus", "verifier", "verusfmt"] {
+        let tool_conf = format!("-Zcrate-attr=register_tool({})", tool);
+        if args_set.contains(&tool_conf) {
+            continue;
+        }
+        rustc_args.push(tool_conf);
+    }
 }
 
 pub fn parse_args_with_imports(
