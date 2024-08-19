@@ -13,7 +13,7 @@ target_dir=target-verus-sysroot
 
 rm -rf $verus_sysroot $target_dir
 
-targets=("aarch64-unknown-linux-gnu")
+targets=("$(uname -m)-unknown-linux-gnu")
 
 profile=release
 
