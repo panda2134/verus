@@ -2342,6 +2342,7 @@ version = "0.1.0"
 dependencies = [
  "builtin",
  "builtin_macros",
+ "state_machines_macros",
 ]
 
 [[package]]

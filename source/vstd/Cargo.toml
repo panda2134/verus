@@ -14,6 +14,7 @@ path = "vstd.rs"
 
 [dependencies]
 builtin_macros = { path = "../builtin_macros" }
+state_machines_macros = { path = "../state_machines_macros" }
 builtin = { path = "../builtin" }
 
 [features]
